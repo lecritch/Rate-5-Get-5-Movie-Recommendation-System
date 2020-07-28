@@ -9,7 +9,7 @@ be read in and run in a notebook.
 
 Run `plt.rcParams` to see all available options that can be changed. 
 """
-
+plt.subplots(figsize = (10, 8)) # put this first before every plot for standardised size
 plt.rcParams['axes.labelsize'] = 20
 plt.rcParams['axes.titlesize'] = 25
 plt.rcParams['xtick.labelsize'] = 15
