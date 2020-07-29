@@ -1,17 +1,26 @@
 from flask import Flask, request
+import pandas as pd
+import pickle
+
 app = Flask(__name__)
 
+movies = pd.read_csv('../data/mod_movies_lc', index_col=0)
+
+with open('../model_files/svd_model.bin', 'rb') as f_in:
+    model = pickle.load(f_in)
+    f_in.close()
 
 @app.route('/')
 def get_home():
-    return """
+    five_movies = movies.sample(5)
+    body = """
     <html>
         <head>
             <title>Rate 5, Get 5</title>
         </head>
         <body>
             <h1>Rate 5, Get 5</h1>
-            <form action="/recs" method="get">
+            <form action="/recs" method="post">
                 <table>
                     <tr>
                         <th>Movie Title</th>
@@ -21,143 +30,38 @@ def get_home():
                         <th></th>
                         <th></th>
                         <th></th>
-                    </tr>
-                    <tr>
-                        <td>Greenberg</td>
-                        <td>
-                            <input type="radio" id="g_1" name="g_rating" value="1">
-                            <label for="g_1">1</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="g_2" name="g_rating" value="2">
-                            <label for="g_2">2</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="g_3" name="g_rating" value="3">
-                            <label for="g_3">3</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="g_4" name="g_rating" value="4">
-                            <label for="g_4">4</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="g_5" name="g_rating" value="5">
-                            <label for="g_5">5</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="g_na" name="g_rating" value="na">
-                            <label for="g_na">na</label><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Failure To Launch</td>
-                        <td>
-                            <input type="radio" id="ftl_1" name="ftl_rating" value="1">
-                            <label for="ftl_1">1</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="ftl_2" name="ftl_rating" value="2">
-                            <label for="ftl_2">2</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="ftl_3" name="ftl_rating" value="3">
-                            <label for="ftl_3">3</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="ftl_4" name="ftl_rating" value="4">
-                            <label for="ftl_4">4</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="ftl_5" name="ftl_rating" value="5">
-                            <label for="ftl_5">5</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="ftl_na" name="ftl_rating" value="na">
-                            <label for="ftl_na">na</label><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Sleepless In Seattle</td>
-                        <td>
-                            <input type="radio" id="sis_1" name="sis_rating" value="1">
-                            <label for="sis_1">1</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="sis_2" name="sis_rating" value="2">
-                            <label for="sis_2">2</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="sis_3" name="sis_rating" value="3">
-                            <label for="sis_3">3</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="sis_4" name="sis_rating" value="4">
-                            <label for="sis_4">4</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="sis_5" name="sis_rating" value="5">
-                            <label for="sis_5">5</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="sis_na" name="sis_rating" value="na">
-                            <label for="sis_na">na</label><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Due Date</td>
-                        <td>
-                            <input type="radio" id="dd_1" name="dd_rating" value="1">
-                            <label for="dd_1">1</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="dd_2" name="dd_rating" value="2">
-                            <label for="dd_2">2</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="dd_3" name="dd_rating" value="3">
-                            <label for="dd_3">3</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="dd_4" name="dd_rating" value="4">
-                            <label for="dd_4">4</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="dd_5" name="dd_rating" value="5">
-                            <label for="dd_5">5</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="dd_na" name="dd_rating" value="na">
-                            <label for="dd_na">na</label><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>How Do You Know?</td>
-                        <td>
-                            <input type="radio" id="hdyk_1" name="hdyk_rating" value="1">
-                            <label for="hdyk_1">1</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="hdyk_2" name="hdyk_rating" value="2">
-                            <label for="hdyk_2">2</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="hdyk_3" name="hdyk_rating" value="3">
-                            <label for="hdyk_3">3</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="hdyk_4" name="hdyk_rating" value="4">
-                            <label for="hdyk_4">4</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="hdyk_5" name="hdyk_rating" value="5">
-                            <label for="hdyk_5">5</label><br>
-                        </td>
-                        <td>
-                            <input type="radio" id="hdyk_na" name="hdyk_rating" value="na">
-                            <label for="hdyk_na">na</label><br>
-                        </td>
-                    </tr>
-                    <hr>
+                    </tr>"""
+    for i, movie in five_movies.iterrows():
+        body += f"""
+        <tr>
+            <td>{movie['title']}</td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_1" name="{movie['movieId']}" value="1">
+                <label for="{movie['movieId']}_1">1</label><br>
+            </td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_2" name="{movie['movieId']}" value="2">
+                <label for="{movie['movieId']}_2">2</label><br>
+            </td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_3" name="{movie['movieId']}" value="3">
+                <label for="{movie['movieId']}_3">3</label><br>
+            </td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_4" name="{movie['movieId']}" value="4">
+                <label for="{movie['movieId']}_4">4</label><br>
+            </td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_5" name="{movie['movieId']}" value="5">
+                <label for="{movie['movieId']}_5">5</label><br>
+            </td>
+            <td>
+                <input type="radio" id="{movie['movieId']}_na" name="{movie['movieId']}" value="na">
+                <label for="{movie['movieId']}_na">na</label><br>
+            </td>
+        </tr>
+        """
+    body += """
                     <tr>
                         <td></td>
                         <td></td>
@@ -172,28 +76,43 @@ def get_home():
         </body>
     </html>
     """
+    return body
 
-@app.route("/recs")
+@app.route("/recs", methods=['POST'])
 def get_recs():
     userId = 1000
-    ratings = []
-    for key in request.args.keys():
-        ratings.append({'userId': userId, 'movieId': key,
-                        'rating': request.args.get(key)})
-    print(ratings)
-    return """
+    user_ratings = []
+    
+    for movieId in request.form.keys():
+        user_ratings.append((userId, movieId, int(request.form[movieId])))
+
+    preds = model.test(user_ratings)
+
+    for pred in preds:
+        estimated_rating = pred.est
+        print(estimated_rating)
+
+    body = """
     <html>
         <head>
             <title>Rate 5, Get 5</title>
         </head>
         <body>
-            <h1>Rate 5, Get 5</h1>
-            <h2>Your Ratings: show ratings</h2>
-            <h2>Your Recommendations: show recs</h2>
-        </body>
-    </html>
-        
+            <h1>Based on your ratings, we think your ratings should actually be:</h1>
     """
+
+    for pred in preds:
+        body += f"""
+            <h2>{movies[movies['movieId'] == int(pred.iid)]['title'].values[0]}:  {pred.est}</h2>
+        """
+
+    body += """
+        </body>
+    </html>  
+    """
+    
+    return body
+
 
 if __name__ == '__main__':
     app.run()
