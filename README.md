@@ -2,6 +2,7 @@
 
 by Dann Moore, Jacob Prebys and Leana Critchell 
 
+
 <img src="../../src/figures/movielens_logo.png" alt="drawing" width="250"/>
 
 
