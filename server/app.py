@@ -68,11 +68,11 @@ def get_home():
     
     if len(request.form) == 4:
         body += """
-		            	<input type="submit" value="Get My Recommendations!">
+		            	<input class="button" type="submit" value="Get My Recommendations!">
     """
     else:
         body += """
-                        <input type="submit" value="Rate Another">
+                        <input class="button" type="submit" value="Rate Another">
         """
     
     body += """
