@@ -15,53 +15,23 @@ body {
     text-align: center;
 }
 
-.box-1 {
-
-}
-
-.box-2 {
-	color:  #E2CECA;
-	background-color: #1B3236;
-	border: 2px #E2CECA solid;
-	border-radius: 5px;
-	padding-bottom: 20px;
-}
-
-.box-2 ul {
-	padding: 0;
-	list-style: none;
-}
-
-.box-2 li {
-	display: inline-block;
-	font-size: 20;
-}
-
-input[type="submit"] {
-	clear: left;
-	background-color: #E2CECA;
-	border-radius: 5px;
-	padding: 5px;
-	font-size: 18;
-
-}
-
-h1 {
+.box-1 h1 {
 	background-color: #1B3236;
 	border: 2px #E2CECA solid;
 	border-radius: 5px;
 	padding: 20px
 }
 
-
-h2 {
+.box-2 h2 {
 	background-color: #1B3236;
 	border: 2px #E2CECA solid;
 	border-radius: 5px;
 	padding: 20px;
 }
 
-
-
-
-
+.box-2 h3 {
+	background-color: #1B3236;
+	border: 2px #E2CECA solid;
+	border-radius: 5px;
+	padding: 20px;
+}
