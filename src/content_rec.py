@@ -80,7 +80,7 @@ class ContentRecommender:
         scores = scores[1:11]
         
         #get the movies we want
-        movie_indices = [i[0] for i in sim_scores]
+        movie_indices = [i[0] for i in scores]
         results =  self.titles.iloc[movie_indices]
         
         # print the results in a somewhat nice way
