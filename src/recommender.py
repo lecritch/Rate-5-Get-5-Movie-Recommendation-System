@@ -49,7 +49,6 @@ def load_and_process_data():
     df = pd.read_csv('../data/ratings.csv')
     df = df.drop(columns='timestamp')
     movies = pd.read_csv('../data/movies.csv')
-
     
     return movies, df
 
@@ -126,6 +125,12 @@ def recommended_movies(user_ratings, movie_title_df, n):
         n-= 1
         if n == 0:
             break
+            
+            
+            
+            
+            
+            
             
             
             
