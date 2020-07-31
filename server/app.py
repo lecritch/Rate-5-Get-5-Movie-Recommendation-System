@@ -24,12 +24,14 @@ def get_home():
     
     body = """
     <html>
-        <head>
-            <title>Rate 5, Get 5</title>
-        </head>
-        <body>
+    <head>
+        <title>Rate 5, Get 5</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    </head>
+    <body>
+    	<div class="container">
             <h1>Rate 5, Get 5</h1>
-        <form action="/" method="post">
+        	<form action="/" method="post">
         """
     
     movie_to_rate = movies.sample(1)
@@ -43,55 +45,32 @@ def get_home():
                 <input type="hidden" name="{key}" value="{request.form[key]}">
                 """
     
-    body +=  f"""<table>
-                    <tr>
-                        <th>Movie Title</th>
-                    </tr>
-        <tr>
-            <td>{movie_to_rate['title'].values[0]}</td>
-            <tr>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_1" name="{movie_to_rate['movieId'].values[0]}" value="1">
-                    <label for="{movie_to_rate['movieId']}_1">1</label><br>
-                </td>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_2" name="{movie_to_rate['movieId'].values[0]}" value="2">
-                    <label for="{movie_to_rate['movieId']}_2">2</label><br>
-                </td>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_3" name="{movie_to_rate['movieId'].values[0]}" value="3">
-                    <label for="{movie_to_rate['movieId']}_3">3</label><br>
-                </td>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_4" name="{movie_to_rate['movieId'].values[0]}" value="4">
-                    <label for="{movie_to_rate['movieId']}_4">4</label><br>
-                </td>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_5" name="{movie_to_rate['movieId'].values[0]}" value="5">
-                    <label for="{movie_to_rate['movieId']}_5">5</label><br>
-                </td>
-                <td>
-                    <input type="radio" id="{movie_to_rate['movieId']}_na" name="{movie_to_rate['movieId'].values[0]}" value="na">
-                    <label for="{movie_to_rate['movieId']}_na">na</label><br>
-                </td>
-            </tr>
-        </tr>
-        """
-    
-    body += """
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                            
-                        <td colspan="4" align="right">
-                            <input type="submit" value="Rate Another!">
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </body>
-    </html>
+    body +=  f"""
+    			<div class="box-1">
+	                <h2>Rate this Movie:</h2>
+	                <div class="box-2">
+			            <h3>{movie_to_rate['title'].values[0]}</h3>
+			            	<ul>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_1" name="{movie_to_rate['movieId'].values[0]}" value="1">
+				                <label for="{movie_to_rate['movieId']}_1">1</label><br></li>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_2" name="{movie_to_rate['movieId'].values[0]}" value="2">
+				                <label for="{movie_to_rate['movieId']}_2">2</label><br></li>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_3" name="{movie_to_rate['movieId'].values[0]}" value="3">
+				                <label for="{movie_to_rate['movieId']}_3">3</label><br></li>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_4" name="{movie_to_rate['movieId'].values[0]}" value="4">
+				                <label for="{movie_to_rate['movieId']}_4">4</label><br></li>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_5" name="{movie_to_rate['movieId'].values[0]}" value="5">
+				                <label for="{movie_to_rate['movieId']}_5">5</label><br></li>
+				                <li><input type="radio" id="{movie_to_rate['movieId']}_na" name="{movie_to_rate['movieId'].values[0]}" value="na">
+				                <label for="{movie_to_rate['movieId']}_na">na</label><br></li>
+				            </ul>
+		            	<input type="submit" value="Rate Another!">
+		            </div>
+            	</div>  	
+    		</form>
+    	</div>
+    </body>
+</html>
     """
     return body
 
