@@ -19,7 +19,7 @@
     			<div class="box-1">
 	                <h2>Rate this Movie:</h2>
 	                <div class="box-2">
-			            <h3>{movie_to_rate['title'].values[0]}</h3>
+			            <h2>{movie_to_rate['title'].values[0]}</h2>
 		                <input type="radio" id="{movie_to_rate['movieId']}_1" name="{movie_to_rate['movieId'].values[0]}" value="1">
 		                <label for="{movie_to_rate['movieId']}_1">1</label><br>
 		                <input type="radio" id="{movie_to_rate['movieId']}_2" name="{movie_to_rate['movieId'].values[0]}" value="2">
@@ -41,3 +41,16 @@
 </html>
 
 
+
+
+
+
+
+<!-- ratings = [1, 2, 3, 4, 5]
+    for rating in ratings:
+        body += f"""
+	                <li><form action="/" method="post">
+                    <input type="hidden" name="{movie_to_rate['movieId'].values[0]}" value="{rating}">
+                    <input type="submit" value="{rating}"></form></li>
+	                
+                """ -->

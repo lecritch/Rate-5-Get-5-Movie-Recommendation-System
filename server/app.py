@@ -9,12 +9,12 @@ app = Flask(__name__)
 movies = pd.read_csv('../data/mod_movies_lc', index_col=0)
 ratings = pd.read_csv('../data/mod_ratings_lc', index_col=0)
 
-with open('../model_files/svd_model 2.bin', 'rb') as f_in:
+with open('../model_files/svd_model.bin', 'rb') as f_in:
     model = pickle.load(f_in)
     f_in.close()
     
 ## MANUALLY ADD MODEL
-model = SVDpp(n_factors=50, reg_all=0.05, lr_all=0.01)
+# model = SVDpp(n_factors=50, reg_all=0.05, lr_all=0.01)
 
 @app.route('/', methods=['GET', 'POST'])
 def get_home():    
@@ -64,14 +64,26 @@ def get_home():
 				                <li><input type="radio" id="{movie_to_rate['movieId']}_na" name="{movie_to_rate['movieId'].values[0]}" value="na">
 				                <label for="{movie_to_rate['movieId']}_na">na</label><br></li>
 				            </ul>
-		            	<input type="submit" value="Rate Another!">
-		            </div>
-            	</div>  	
-    		</form>
-    	</div>
+                            """
+    
+    if len(request.form) == 4:
+        body += """
+		            	<input type="submit" value="Get My Recommendations!">
+    """
+    else:
+        body += """
+                        <input type="submit" value="Rate Another">
+        """
+    
+    body += """
+    </div>
+                </div>      
+            </form>
+        </div>
     </body>
 </html>
-    """
+"""
+
     return body
 
 @app.route("/recs", methods=['POST'])
@@ -79,11 +91,15 @@ def get_recs():
 
     body = f"""
     <html>
-        <head>
-            <title>Rate 5, Get 5</title>
-        </head>
-        <body>
-            <h1>Based on your ratings, we think you'll like these 5 movies:</h1>
+    <head>
+        <title>Your Movie Recommendations</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style_recs.css">
+    </head>
+    <body>
+    	<div class="container">
+    		<div class="box-1">
+            	<h1>5 Movies, Just For You:</h1>
+            </div>
     """      
     userId = 1000
     user_ratings = []
@@ -95,34 +111,41 @@ def get_recs():
         user_ratings.append(rating_one_movie)
         
     
-    # add the new ratings to the original movies df
-    combined_ratings = ratings.append(user_ratings, ignore_index=True)
-    data = Dataset.load_from_df(combined_ratings, reader)
+#     # add the new ratings to the original movies df
+#     combined_ratings = ratings.append(user_ratings, ignore_index=True)
+#     data = Dataset.load_from_df(combined_ratings, reader)
     
-    # fit the model to the data with the new user's ratings
-    model.fit(data.build_full_trainset()) # do we need .build_full_trainset() here? - seems so since it doens't work without
+#     # fit the model to the data with the new user's ratings
+# #     model.fit(data.build_full_trainset()) # do we need .build_full_trainset() here? - seems so since it doens't work without
     
-    # create a list of tuples containing the new user's predicted ratings for each movie
-    list_of_movies = []
-    for movieId in ratings['movieId'].unique():
-        print(model.predict(userId, movieId)[3])
-        list_of_movies.append((movieId, model.predict(userId, movieId)[3]))
+#     # create a list of tuples containing the new user's predicted ratings for each movie
+#     list_of_movies = []
+#     for movieId in ratings['movieId'].unique():
+#         print(model.predict(userId, movieId)[3])
+#         list_of_movies.append((movieId, model.predict(userId, movieId)[3]))
     
-    # rank the predictions from highest to lowest
-    rank_movies = sorted(list_of_movies, key = lambda x:x[1], reverse=True)
+#     # rank the predictions from highest to lowest
+#     rank_movies = sorted(list_of_movies, key = lambda x:x[1], reverse=True)
     
-    # grab the top 5 highest predicted ratings
-    top_5 = rank_movies[:5]
+#     # grab the top 5 highest predicted ratings
+#     top_5 = rank_movies[:5]
     
     # print out the top 5 recommendations
+
     count = 1
-    for movie in top_5:
-        body += f"""<h2>{count}. {movies[movies['movieId'] == movie[0]]['title'].values[0]}</h2>"""
+    for movie in user_ratings:
+        body += f"""
+        <div class="box-2">
+            	<h3>{count}. {movies[movies['movieId'] == int(movie['movieId'])]['title'].values[0]}</h3>
+            </div>
+        """
+#         body += f"""<h2>{count}. {movies[movies['movieId'] == movie[0]]['title'].values[0]}</h2>""" ## uncomment once I figure out modelling
         count += 1
 
     body += f"""
-        </body>
-    </html>  
+        </div>
+    </body>
+</html>  
     """
     
     return body
@@ -137,7 +160,12 @@ if __name__ == '__main__':
     
     
     
-    
+
+
+
+
+#### graveyard code ####
+
 #     if len(request.form) >= 4:
 #         body += """
 #         <form action="/recs" method="post">
@@ -168,3 +196,13 @@ if __name__ == '__main__':
 #     for pred in preds:
 #         estimated_rating = pred.est
 #         print(estimated_rating)
+
+
+# ratings = [1, 2, 3, 4, 5]
+#     for rating in ratings:
+#         body += f"""
+#                     <li><form action="/" method="post">
+#                     <input type="hidden" name="{movie_to_rate['movieId'].values[0]}" value="{rating}">
+#                     <input type="submit" value="{rating}"></form></li>
+                    
+#                 """
