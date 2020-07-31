@@ -37,13 +37,36 @@ body {
 	font-size: 20;
 }
 
+/*.button {
+	clear: left;
+	background-color: #E2CECA;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 18;
+	border: none;
+	color: #1B3236;
+}
+
+.button: hover {
+	background-color: red;
+	color: white;
+}*/
+
 input[type="submit"] {
 	clear: left;
 	background-color: #E2CECA;
 	border-radius: 5px;
 	padding: 5px;
 	font-size: 18;
+	border: none;
+	color: #1B3236;
 
+
+}
+
+input[type="submit"]: hover {
+	background-color: red;
+	color: white;
 }
 
 h1 {
