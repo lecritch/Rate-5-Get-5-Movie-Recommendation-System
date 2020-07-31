@@ -68,11 +68,11 @@ def get_home():
     
     if len(request.form) == 4:
         body += """
-		            	<input class="button" type="submit" value="Get My Recommendations!">
+		            	<input type="submit" value="Get My Recommendations!">
     """
     else:
         body += """
-                        <input class="button" type="submit" value="Rate Another">
+                        <input type="submit" value="Rate Another">
         """
     
     body += """
@@ -105,18 +105,18 @@ def get_recs():
     user_ratings = []
     reader = Reader()
     
-    # create list of dictionary items containing user's ratings from previous page
-    for movieId in request.form.keys():
-        rating_one_movie = {'userId': userId, 'movieId': movieId, 'rating': int(request.form[movieId])}
-        user_ratings.append(rating_one_movie)
+#     # create list of dictionary items containing user's ratings from previous page
+#     for movieId in request.form.keys():
+#         rating_one_movie = {'userId': userId, 'movieId': movieId, 'rating': int(request.form[movieId])}
+#         user_ratings.append(rating_one_movie)
         
     
-#     # add the new ratings to the original movies df
+    # add the new ratings to the original movies df
 #     combined_ratings = ratings.append(user_ratings, ignore_index=True)
 #     data = Dataset.load_from_df(combined_ratings, reader)
     
 #     # fit the model to the data with the new user's ratings
-# #     model.fit(data.build_full_trainset()) # do we need .build_full_trainset() here? - seems so since it doens't work without
+#     model.fit(data.build_full_trainset()) # do we need .build_full_trainset() here? - seems so since it doens't work without
     
 #     # create a list of tuples containing the new user's predicted ratings for each movie
 #     list_of_movies = []
@@ -131,16 +131,21 @@ def get_recs():
 #     top_5 = rank_movies[:5]
     
     # print out the top 5 recommendations
+    
+    # for demo purposes, randomly select 5 movies to recommend
+    recommend_5 = movies.sample(5)
 
     count = 1
-    for movie in user_ratings:
+    for movie in recommend_5.title:
         body += f"""
         <div class="box-2">
-            	<h3>{count}. {movies[movies['movieId'] == int(movie['movieId'])]['title'].values[0]}</h3>
+            	<h3>{count}. {movie}</h3>
             </div>
         """
-#         body += f"""<h2>{count}. {movies[movies['movieId'] == movie[0]]['title'].values[0]}</h2>""" ## uncomment once I figure out modelling
         count += 1
+        
+#         body += f"""<h2>{count}. {movies[movies['movieId'] == movie[0]]['title'].values[0]}</h2>""" ## uncomment once I figure out modelling
+        
 
     body += f"""
         </div>
