@@ -10,6 +10,8 @@ by Dann Moore, Jacob Prebys and Leana Critchell
 
 We aim to create a recommendation system based on the MovieLens dataset from the GroupLens research lab at the University of Minnesota. Furthermore, we would like to deploy a web app that will alloy a user to enter some ratings for movies that they have seen, and then, based on the model we have implemented, it will reccomend movies that align with their interests. 
 
+### Success Criteria
+
 
 ### Our Data
 
@@ -32,6 +34,7 @@ For this recommendation system, we are provided with actual ratings that actual 
 
 ### Deployment
 
+To deploy our recommendation system we decided to use the Python library Flask, which is a framework for making simple web-apps backed with Python code. With this tool we were able to make a cool app that will ask users to rate a certain number of movies, and it will recommend films based on similar users' interests.
 
 
 
