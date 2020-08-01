@@ -1,22 +1,10 @@
 from flask import Flask, request, redirect, url_for
 import pandas as pd
-import pickle
-from surprise import Reader, Dataset
-from surprise.prediction_algorithms import SVDpp
+
 
 app = Flask(__name__)
 
 movies = pd.read_csv('../data/mod_movies_lc', index_col=0)
-ratings = pd.read_csv('../data/mod_ratings_lc', index_col=0)
-
-# if using a pickled model, uncomment and add your file path
-# model_file_path = 
-# with open(model_file_path, 'rb') as f_in:
-#     model = pickle.load(f_in)
-#     f_in.close()
-    
-# MANUALLY ADD OUR BEST MODEL
-model = SVDpp(n_factors=50, reg_all=0.05, lr_all=0.01)
 
 @app.route('/', methods=['GET', 'POST'])
 def get_home():    
@@ -36,6 +24,7 @@ def get_home():
         	<form action="/" method="post">
         """
     
+    # randomly select movies to rate
     movie_to_rate = movies.sample(1)
     
     if request.form is not None:
@@ -47,6 +36,7 @@ def get_home():
                 <input type="hidden" name="{key}" value="{request.form[key]}">
                 """
     
+    # code for radio dials
     body +=  f"""
     			<div class="box-1">
 	                <h2>Rate this Movie:</h2>
@@ -68,6 +58,7 @@ def get_home():
 				            </ul>
                             """
     
+    # code to change button once user is making their 5th selection
     if len(request.form) == 4:
         body += """
 		            	<input class="button" type="submit" value="Get My Recommendations!">
@@ -85,8 +76,8 @@ def get_home():
     </body>
 </html>
 """
-    return body
 
+    return body
 
 @app.route("/recs", methods=['POST'])
 def get_recs():
@@ -103,41 +94,15 @@ def get_recs():
             	<h1>5 Movies, Just For You:</h1>
             </div>
     """      
-    userId = 1000
-    user_ratings = []
-    reader = Reader()
     
-    # create list of dictionary items containing user's ratings from previous page
-    for movieId in request.form.keys():
-        rating_one_movie = {'userId': userId, 'movieId': movieId, 'rating': int(request.form[movieId])}
-        user_ratings.append(rating_one_movie)
-        
-    
-    # add the new ratings to the original movies df
-    combined_ratings = ratings.append(user_ratings, ignore_index=True)
-    data = Dataset.load_from_df(combined_ratings, reader)
-    
-#     # fit the model to the data with the new user's ratings
-    model.fit(data.build_full_trainset())
-    
-#     # create a list of tuples containing the new user's predicted ratings for each movie
-    list_of_movies = []
-    for movieId in ratings['movieId'].unique():
-        print(model.predict(userId, movieId)[3])
-        list_of_movies.append((movieId, model.predict(userId, movieId)[3]))
-    
-#     # rank the predictions from highest to lowest
-    rank_movies = sorted(list_of_movies, key = lambda x:x[1], reverse=True)
-    
-#     # grab the top 5 highest predicted ratings
-    top_5 = rank_movies[:5]
-    
-    # print out the top 5 recommendations
+    # for demo purposes, randomly select 5 movies to recommend
+    recommend_5 = movies.sample(5)
+
     count = 1
-    for movie in top_5:
+    for movie in recommend_5.title:
         body += f"""
         <div class="box-2">
-            	<h3>{count}. {movies[movies['movieId'] == movie[0]]['title'].values[0]}</h3>
+            	<h3>{count}. {movie}</h3>
             </div>
         """
         count += 1
@@ -146,7 +111,8 @@ def get_recs():
         </div>
     </body>
 </html>  
-    """  
+    """
+    
     return body
 
 

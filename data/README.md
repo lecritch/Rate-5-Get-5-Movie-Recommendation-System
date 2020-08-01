@@ -1,3 +1,8 @@
+Disclaimer:
+==========
+
+Belower (from Summary) is the documentation as provided by [MovieLens](http://movielens.org).  It has been copied into this README.md for your convenience when using this dataset and following this project.  
+
 Summary
 =======
 
