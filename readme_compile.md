@@ -56,10 +56,10 @@ To deploy our recommendation system we decided to use the Python library Flask, 
 Here's an app preview:
 
 ### Home Page
-![image](../../reports/figures/app_home.png)
+![image](reports/figures/app_home.png)
 
 ### Recommendations Page
-![image](../../reports/figures/app_recs.png)
+![image](reports/figures/app_recs.png)
 
 
 ### Directory Structure:
@@ -72,17 +72,17 @@ Here's an app preview:
 
 We found the average rating is 3.5 and the data is left-skewed as can be seen in the image below.  This shows us that there aren't many low ratings between 0.5 and 2.  Perhaps this says something about the motivation for people to rate movies and that people only rate movies they enjoy.
 
-![image](../../reports/figures/dist_ratings.png)
+![image](reports/figures/dist_ratings.png)
 
 Something that comes up a lot in recommendation system problems is the long tail problem.  This is where we have a fast majority of users and/or items that only have 1 rating associated to them and a small amount of items/users that have a lot of ratings associated with them.  We first looked into the number of ratings per movie:
 
-![image](../../reports/figures/ratings_by_movie.png)
+![image](reports/figures/ratings_by_movie.png)
 
 As you can see we do have a long tail problem here where the majority of movies have less than 25 ratings and very few have more than that.
 
 We then looked into the number of ratings per user to investigate this long tail problem further:
 
-![image](../../reports/figures/ratings_by_user.png)
+![image](reports/figures/ratings_by_user.png)
 
 #### Top 10 Genres 
 
@@ -96,13 +96,13 @@ We found that the top movies boil down to:
 
 We visualise the top 10 genres:
 
-![image](../../reports/figures/top_10_genres.png)
+![image](reports/figures/top_10_genres.png)
 
 We can see here that Drama is the most highly rated genre, second is Comedy and third Comedy|Drama. This along suggests that these could be aggregated some how and should be considered in future investigations.
 
 #### Ratings by Release Year
 
-![image](../../reports/figures/ratings_by_release_date.png)
+![image](reports/figures/ratings_by_release_date.png)
 
 From this graph we can see that movies that were released before 1990 tend to have a higher average rating. From roughly 1990, the average movie rating appears to trend downwards towards the average rating of the dataset (3.5). Since the rating of these movies have taken place since 1993, this could suggest that people who watched and rated older movies, watched them because they were already a recommended to them as being good movies and so these movies are watched by good referral. Whereas from 1993, movies could have been watched and rated by people's own motivations rather than personal recommendations. So perhaps this suggests what we see in the data here.
 
