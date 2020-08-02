@@ -10,6 +10,11 @@ by Leana Critchell, Jacob Prebys and Dann Morr
 
 We aim to create a recommendation system based on the MovieLens dataset from the GroupLens research lab at the University of Minnesota. Furthermore, we would like to deploy a web app that will alloy a user to enter some ratings for movies that they have seen, and then, based on the model we have implemented, it will reccomend movies that align with their interests. 
 
+### Success Criteria
+
+Success will be measured by implementing collaborative and content-based models that can return movie recommendations to a user.
+
+
 ### Members
 
 |         Name             |                  GitHub          | 
