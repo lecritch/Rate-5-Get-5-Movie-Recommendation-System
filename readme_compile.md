@@ -12,7 +12,7 @@ We aim to create a recommendation system based on the MovieLens dataset from the
 
 ### Success Criteria
 
-Success will be measured by implementing collaborative and content-based models that can return movie recommendations to a user.
+Success will be measured by implementing collaborative and content-based models that can return movie recommendations to a user. The goal is to provide reviews that we find sensible based on either reviews that the user enters, or based on a film given to the content-based system. A good recommendation algorithm can be extremely useful for streaming companies, as a constant stream of accurate or interesting recommendations will keep users engaged with the platform.
 
 
 ### Members
@@ -45,11 +45,28 @@ The Co
 
 #### Content-Based Model:
 
-# enter model info here
+The next type of recommendation system we wanted to explore was a content-based version. Our previous model would look at other users that have similar interests, and it would recommend other titles that they have liked. This system goes the other direction and it takes movies that you like, and, having learned some information about the film, recommends titles that are similar to it.
+
+To do this, we gathered descriptions and genre tags for each film, and then utilized some of Python's natural language processing tools to turn this text information into numerical information. We used the following process:
+
+ 1. **TF-IDF Vectorization**
+   - Short for Term Frequency - Inverse Document Frequency, this is a method for assigning values to each word based on the amount of times it appear in documents. This specific value takes in to account the number of times a word appears in a single description and also how commonly it appears in all descriptions. In a single description, a word is given a high tf-idf score if it appears many times in one description, but it is relatively uncommon across all descriptions. This is partially meant to filter out words that are common to movies in general.
+   
+   
+ 2. **Cosine Similarity**
+  - Once each film is represented by a many-dimensional vector, a common method for determining how 'similar' two films are is by caluculating how close to 1 the cosine of the angle between them is.
+  
+  
+ 3. **Sorting**
+  - Now that we have a measure of similarity between every pair of movies, we can take in a single movie, sort the rest of the movies by how similar they are to our chosen film, and then return the top 10 most similar films.
+  
+  
+We have put together a Python class to demonstrate our content-based recommender, the source code for it can be found in the src folder under the name [content_rec.py](../../src/content_rec.py). 
 
 ### Evaluation
 
-# enter model/project evaluation here
+Overall our models were successful in providing good recommendations to users. Our final model had a root mean squared error of 0.855, but that could be improved through further model iterations and perhaps some integrations of the content-based system into the collaborative one.
+
 ![image](reports/figures/DistributionofErrors.png)
 ### Deployment
 
@@ -114,4 +131,4 @@ We had good success with both collaborative and content-based recommendation sys
 
 ## Future Work
 
-A good place to direct our efforts in the future would be speeding up our model training process so our app deployment can work faster. We should also consider taking parts of our content and collaboration systems to make a hybrid recommender system that makes SUPER GOOD recommendations.
+A good place to direct our efforts in the future would be speeding up our model training process so our app deployment can work faster. We should also consider taking parts of our content and collaboration systems to make a hybrid recommender system that makes even more valid or interesting recommendations.
