@@ -1,6 +1,6 @@
-# Recommendation Systems Project 
+# Rate 5, Get 5 - Recommendation System Project 
 
-by Dann Moore, Jacob Prebys and Leana Critchell 
+by Leana Critchell, Jacob Prebys and Dann Morr
 
 
 <img src="src/figures/movielens_logo.png" alt="drawing" width="250"/>
@@ -18,9 +18,6 @@ We aim to create a recommendation system based on the MovieLens dataset from the
 |Jacob Prebys              | [jprebys](https://github.com/jprebys)|
 |Dann Morr                 | [dannmorr](https://github.com/dannmorr)|
 
-### Success Criteria
-
-# enter success criteria here
 
 ### Our Data
 
@@ -32,14 +29,14 @@ The four csv datasets were downloaded to this repo which you can find [here](../
 
 ### Metrics
 
-For this recommendation system, we are provided with actual ratings that actual users gave to movies. Because we have a numerical rating system, the standard metrics for regression problems apply here. Calculating the root mean squared error (RMSE) is a natural choice for model evaluation, but there are problems in practice with this method. Most notably, the movies that have few ratings don't have much affect on the RMSE; therefore, the movies that have a ton of ratings are going to be the most recommended in a model tuned for RMSE. There are other metrics that we are considering--namely NDGC-- and these are more applicable to recommendation systems. More info on these can be found [here](http://fastml.com/evaluating-recommender-systems/)
+For this recommendation system, we are provided with actual ratings that actual users gave to movies. Because we have a numerical rating system, the standard metrics for regression problems apply here. Calculating the root mean squared error (RMSE) is a natural choice for model evaluation, but there are problems in practice with this method. Most notably, the movies that have few ratings don't have much affect on the RMSE; therefore, we will have to take this into consideration when tuning the model.
 
 
 ### Modeling
 
 #### Collaborative Filtering Model:
 
-# enter model info here
+The Co
 
 #### Content-Based Model:
 
@@ -48,7 +45,7 @@ For this recommendation system, we are provided with actual ratings that actual 
 ### Evaluation
 
 # enter model/project evaluation here
-
+![image](reports/figures/DistributionofErrors.png)
 ### Deployment
 
 To deploy our recommendation system we decided to use the Python library Flask, which is a framework for making simple web-apps backed with Python code. With this tool we were able to make a cool app that will ask users to rate a certain number of movies, and it will recommend films based on similar users' interests.
@@ -108,7 +105,7 @@ From this graph we can see that movies that were released before 1990 tend to ha
 
 ## Final Results¶
 
-We had good success with both collaborative and content-based recommendation systems, as well as our Flask deployment. Our final collaborative model ended up with a mean average error of about 0.6, which is not bad on a 5-point rating scale. Our content based model is showing very good variety in picking movies that are similar in genre and description.
+We had good success with both collaborative and content-based recommendation systems, as well as our Flask deployment. Our final collaborative model ended up with a RMSE of approx 0.855, which is not bad on a 5-point rating scale. Our content based model is showing very good variety in picking movies that are similar in genre and description.
 
 ## Future Work
 
