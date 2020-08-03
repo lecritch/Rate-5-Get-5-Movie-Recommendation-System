@@ -1,4 +1,3 @@
-
 class ContentRecommender:
     """
     class to be used to make recommendations based of the content of films
@@ -33,9 +32,9 @@ class ContentRecommender:
         from sklearn.metrics.pairwise import linear_kernel, cosine_similarity
 
         # read the data into DataFrames
-        meta = pd.read_csv('../data/movies_metadata.csv', low_memory=False).set_index('id')
-        movies = pd.read_csv('../data/movies.csv', dtype=object).set_index('movieId')
-        links = pd.read_csv('../data/links.csv', dtype=object).set_index('movieId')
+        meta = pd.read_csv('../../data/movies_metadata.csv', low_memory=False).set_index('id')
+        movies = pd.read_csv('../../data/movies.csv', dtype=object).set_index('movieId')
+        links = pd.read_csv('../../data/links.csv', dtype=object).set_index('movieId')
 
         # Join the descriptions with their titles in our original dataset
         meta['imdb_id'] = meta['imdb_id'].str[-7:]
