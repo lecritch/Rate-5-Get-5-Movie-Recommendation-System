@@ -39,7 +39,7 @@ by Leana Critchell, Jacob Prebys and Dann Morr
 
 ### Overview
 
-We aim to create a recommendation system based on the MovieLens dataset from the GroupLens research lab at the University of Minnesota. Furthermore, we would like to deploy a web app that will alloy a user to enter some ratings for movies that they have seen, and then, based on the model we have implemented, it will reccomend movies that align with their interests. 
+We aim to create a recommendation system based on the MovieLens dataset from the GroupLens research lab at the University of Minnesota. Furthermore, we would like to deploy a web app that will allow a user to enter some ratings for movies that they have seen, and then, based on the model we have implemented, it will recommend movies that align with their interests. 
 
 ### Success Criteria
 
@@ -74,7 +74,7 @@ Something that comes up a lot in recommendation system problems is the long tail
 
 ![image](reports/figures/ratings_by_movie.png)
 
-As you can see we do have a long tail problem here where the majority of movies have less than 25 ratings and very few have more than that.
+As you can see, we do have a long tail problem here where the majority of movies have less than 25 ratings and very few have more than that.
 
 We then looked into the number of ratings per user to investigate this long tail problem further:
 
@@ -94,7 +94,7 @@ We visualise the top 10 genres:
 
 ![image](reports/figures/top_10_genres.png)
 
-We can see here that Drama is the most highly rated genre, second is Comedy and third Comedy|Drama. This along suggests that these could be aggregated some how and should be considered in future investigations.
+We can see here that Drama is the most highly rated genre, second is Comedy and third Comedy|Drama. This along suggests that these could be aggregated somehow and should be considered in future investigations.
 
 #### Ratings by Release Year
 
@@ -104,7 +104,7 @@ From this graph we can see that movies that were released before 1990 tend to ha
 
 ### Metrics
 
-For this recommendation system, we are provided with actual ratings that actual users gave to movies. Because we have a numerical rating system, the standard metrics for regression problems apply here. Calculating the root mean squared error (RMSE) is a natural choice for model evaluation, but there are problems in practice with this method. Most notably, the movies that have few ratings don't have much affect on the RMSE; therefore, we will have to take this into consideration when tuning the model.
+For this recommendation system, we are provided with actual ratings that actual users gave to movies. Because we have a numerical rating system, the standard metrics for regression problems apply here. Calculating the root mean squared error (RMSE) is a natural choice for model evaluation, but there are problems in practice with this method. Most notably, the movies that have few ratings don't have much effect on the RMSE; therefore, we will have to take this into consideration when tuning the model.
 
 
 ### Models
@@ -113,7 +113,7 @@ For this recommendation system, we are provided with actual ratings that actual 
 
 ### Collaborative Filtering Model
 
-The key idea behind collaborative filtering is that similar users share similar interests and that users tend to like items that are similar to one another. We plan to use this for our recommendation system. A user will rate 5 movies, that new data will be used to generate recommendations based on the ratings from users in our datset. 
+The key idea behind collaborative filtering is that similar users share similar interests and that users tend to like items that are similar to one another. We plan to use this for our recommendation system. A user will rate 5 movies, that new data will be used to generate recommendations based on the ratings from users in our dataset. 
 
 
 
@@ -122,7 +122,7 @@ The key idea behind collaborative filtering is that similar users share similar 
    
    
  2. **Iterating and tuning the model**
-  - After the model was chosen we ran several iterations, tuning the hyperparameters each time to see if we could imporve the score.
+  - After the model was chosen, we ran several iterations, tuning the hyperparameters each time to see if we could improve the score.
   
 
 #### Content-Based Model
@@ -132,11 +132,11 @@ The next type of recommendation system we wanted to explore was a content-based 
 To do this, we gathered descriptions and genre tags for each film, and then utilized some of Python's natural language processing tools to turn this text information into numerical information. We used the following process:
 
  1. **TF-IDF Vectorization**
-   - Short for Term Frequency - Inverse Document Frequency, this is a method for assigning values to each word based on the amount of times it appear in documents. This specific value takes in to account the number of times a word appears in a single description and also how commonly it appears in all descriptions. In a single description, a word is given a high tf-idf score if it appears many times in one description, but it is relatively uncommon across all descriptions. This is partially meant to filter out words that are common to movies in general.
+   - Short for Term Frequency - Inverse Document Frequency, this is a method for assigning values to each word based on the amount of times it appears in documents. This specific value takes in to account the number of times a word appears in a single description and also how commonly it appears in all descriptions. In a single description, a word is given a high tf-idf score if it appears many times in one description, but it is relatively uncommon across all descriptions. This is partially meant to filter out words that are common to movies in general.
    
    
  2. **Cosine Similarity**
-  - Once each film is represented by a many-dimensional vector, a common method for determining how 'similar' two films are is by caluculating how close to 1 the cosine of the angle between them is.
+  - Once each film is represented by a many-dimensional vector, a common method for determining how 'similar' two films are is by calculating how close to 1 the cosine of the angle between them is.
   
   
  3. **Sorting**
@@ -147,12 +147,12 @@ We have put together a Python class to demonstrate our content-based recommender
 
 ### Evaluation
 
-Overall our models were successful in providing good recommendations to users. Our final model had a root mean squared error of 0.856, but that could be improved through further model iterations and perhaps some integrations of the content-based system into the collaborative one.
+Overall, our models were successful in providing good recommendations to users. Our final model had a root mean squared error of 0.856, but that could be improved through further model iterations and perhaps some integrations of the content-based system into the collaborative one.
 
 ![image](reports/figures/DistributionofErrors.png)
 ### Deployment
 
-To deploy our recommendation system we decided to use the Python library Flask, which is a framework for making simple web-apps backed with Python code. With this tool we were able to make a cool app that will ask users to rate a certain number of movies, and it will recommend films based on similar users' interests.
+To deploy our recommendation system, we decided to use the Python library Flask, which is a framework for making simple web-apps backed with Python code. With this tool we were able to make a cool app that will ask users to rate a certain number of movies, and it will recommend films based on similar users' interests.
 
 Here's an app preview:
 
@@ -167,7 +167,7 @@ Here's an app preview:
 
 ### Final Results
 
-We had good success with both collaborative and content-based recommendation systems, as well as our Flask deployment. Our final collaborative model ended up with a RMSE of approx 0.855, which is not bad on a 5-point rating scale. Our content based model is showing very good variety in picking movies that are similar in genre and description.
+We had good success with both collaborative and content-based recommendation systems, as well as our Flask deployment. Our final collaborative model ended up with a RMSE of approx. 0.855, which is not bad on a 5-point rating scale. Our content-based model is showing very good variety in picking movies that are similar in genre and description.
 
 ### Future Work
 
